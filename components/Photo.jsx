@@ -12,14 +12,14 @@ const Photo = () => {
           transition: { delay: 2, duration: 0.25, ease: "easeIn" },
         }}
       >
-        <div className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px]">
+        <div className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] ">
           <Image
             src="/assets/me.png"
             priority
             quality={100}
             fill
             alt=""
-            className="object-contain"
+            className="object-contain bg-blend-darken rounded-full"
           />
         </div>
       </motion.div>
