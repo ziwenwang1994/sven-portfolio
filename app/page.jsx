@@ -1,8 +1,27 @@
-import { FileDownIcon } from "lucide-react";
 import { Button } from "../components/ui/button";
 import Socials from "@/components/Socials";
 import Photo from "@/components/Photo";
 import { FiDownload } from "react-icons/fi";
+import SkillComponent from "@/components/SkillComponent";
+const frontendSkills = [
+  { size: [64, 64], src: "/assets/ts-240.png", description: "TypeScript" },
+  { size: [64, 64], src: "/assets/react-480.png", description: "React" },
+  { size: [64, 64], src: "/assets/vue-240.png", description: "Vue" },
+  { size: [64, 64], src: "/assets/nuxt-480.png", description: "Nuxt" },
+  { size: [64, 64], src: "/assets/next-256.png", description: "Next" },
+  { size: [64, 64], src: "/assets/sass-480.png", description: "SASS" },
+  { size: [64, 64], src: "/assets/tailwindcss-480.png", description: "TailwindCSS" },
+];
+const backendSkills = [
+  { size: [64, 64], src: "/assets/nodejs-240.png", description: "Node.js" },
+  { size: [64, 64], src: "/assets/express-480.png", description: "Express.js" },
+  { size: [64, 64], src: "/assets/php-480.png", description: "PHP" },
+  { size: [64, 64], src: "/assets/laravel-100.png", description: "Laravel" },
+  { size: [64, 64], src: "/assets/postgresql-480.png", description: "PostgreSQL" },
+  { size: [64, 64], src: "/assets/mongodb-480.png", description: "MongoDB" },
+  { size: [64, 64], src: "/assets/docker-240.png", description: "Docker" },
+  { size: [64, 64], src: "/assets/aws-256.png", description: "AWS" },
+];
 export default function Home() {
   return (
     <section className="h-full">
@@ -16,8 +35,7 @@ export default function Home() {
               <span className="text-accent">Ziwen Wang</span>
             </h1>
             <p className="max-w-[500px] mb-9 text-white/80">
-              I am dreaming to be an artist of Software Engineering, and I am
-              preficient in various programming languages and technologies.
+              {"ex Software Engineer @ Opera | React, Vue, Typescript, Node, PHP, RDB, and ORDB | Web3 Beginner."}
             </p>
             <div className="flex flex-col xl:flex-row items-center gap-8">
               <Button
@@ -37,7 +55,39 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="order-1 xl:order-none mb-8 xl:mb-0"><Photo /></div>
+          <div className="order-1 xl:order-none mb-8 xl:mb-0">
+            <Photo />
+          </div>
+        </div>
+        <div className="flex gap-8 justify-center flex-wrap lg:flex-nowrap">
+          <section>
+            <h3 className="text-accent font-semibold h3">{"Front-end skills:"}</h3>
+            <div className="flex gap-4 mt-4 flex-wrap">
+              {frontendSkills.map(({ src, size, description, alt }) => (
+                <SkillComponent
+                  key={description}
+                  src={src}
+                  size={size}
+                  description={description}
+                  alt={alt}
+                />
+              ))}
+            </div>
+          </section>
+          <section>
+          <h3 className="text-accent font-semibold h3">{"Back-end skills:"}</h3>
+          <div className="flex gap-4 mt-4 flex-wrap">
+            {backendSkills.map(({ src, size, description, alt }) => (
+                <SkillComponent
+                  key={description}
+                  src={src}
+                  size={size}
+                  description={description}
+                  alt={alt}
+                />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </section>
