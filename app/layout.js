@@ -1,4 +1,4 @@
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
@@ -10,6 +10,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrainsMono",
 });
 
+const pressStart2P = Press_Start_2P({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-pressStart2P",
+});
+
 export const metadata = {
   title: "Sven Portfolio",
   description: "The portfolio of Sven developed in Next.js.",
@@ -18,7 +24,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={jetbrainsMono.variable}>
+      <body className={`${jetbrainsMono.variable} ${pressStart2P.variable}`}>
         <Header />
         <StairTransition />
         <PageTransition />

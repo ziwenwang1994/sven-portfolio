@@ -20,7 +20,8 @@ module.exports = {
       xl: "1200px",
     },
     fontFamily: {
-      primary: "var(--font-jetbrainsMono)"
+      primary: ["var(--font-jetbrainsMono)"],
+      pixel: ["vat(--font-pressStart2P)"]
     },
     extend: {
       colors: {
