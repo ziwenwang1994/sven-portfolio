@@ -115,7 +115,6 @@ const PaintingBoard = () => {
   const handleColorChange = (e) => {
     setBrushColor(e.target.value);
     setIsErasing(false);
-    setIsFilling(false);
   };
 
   const clearBoard = () => {
@@ -154,7 +153,7 @@ const PaintingBoard = () => {
       initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
-        transition: { delay: 2, duration: 0.25, ease: "easeIn" },
+        transition: { delay: 2, duration: 0.1, ease: "easeIn" },
       }}
       className="flex justify-center"
     >

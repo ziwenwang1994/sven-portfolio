@@ -1,9 +1,16 @@
-import React from 'react'
+
+
+import Projects from "@/components/Projects";
+import React from "react";
 
 export const Work = () => {
   return (
-    <div>Work page</div>
-  )
-}
+    <section className="h-full">
+      <div className="container mx-auto">
+        <Projects />
+      </div>
+    </section>
+  );
+};
 
 export default Work;
