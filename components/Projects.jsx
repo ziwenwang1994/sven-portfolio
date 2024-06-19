@@ -7,7 +7,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/const";
 
-const Projects = () => {
+const Projects = ({className}) => {
   const [currentTab, setCurrentTab] = useState("Personal");
   const tabList = projects
     .map((project) => project.tab)
@@ -18,7 +18,7 @@ const Projects = () => {
     }, []);
   return (
     <main>
-      <Tabs className="flex-wrap lg:flex hidden" defaultValue={tabList[0]}>
+      <Tabs className={`flex-wrap lg:flex hidden ${className}`} defaultValue={tabList[0]}>
         <TabsList
           aria-label="Projects"
           className="lg:w-[200px] flex bg-accent lg:block"
@@ -27,7 +27,7 @@ const Projects = () => {
             <TabsTrigger
               key={`tabs-${tab}`}
               value={tab}
-              className="w-full text-zinc-900 font-semibold"
+              className="w-full text-zinc-900 font-semibold hover:bg-white/70"
               onClick={() => setCurrentTab(tab)}
             >
               {tab}

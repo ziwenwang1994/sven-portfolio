@@ -7,7 +7,7 @@ export const Work = () => {
   return (
     <section className="h-full">
       <div className="container mx-auto">
-        <Projects />
+        < Projects className="mt-8" />
       </div>
     </section>
   );
