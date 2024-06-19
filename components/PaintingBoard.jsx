@@ -1,9 +1,15 @@
 "use client";
-// src/PaintingBoard.js
+
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "./ui/button";
-import { Download } from "lucide-react";
-
+import { motion } from "framer-motion";
+import { BsEraserFill } from "react-icons/bs";
+import { IoIosColorFill } from "react-icons/io";
+const defaultColor = "transparent";
+const defaultBrush = "black";
+const brushPath = "/assets/brush.png";
+const erasePath = "/assets/erase.png";
+const fillPath = "/assets/fill.png";
 const PaintingBoard = () => {
   const rows = 64;
   const cols = 64;
@@ -12,13 +18,26 @@ const PaintingBoard = () => {
     Array(rows).fill(Array(cols).fill("transparent"))
   );
   const [isPainting, setIsPainting] = useState(false);
-  const [brushColor, setBrushColor] = useState("black");
+  const [isErasing, setIsErasing] = useState(false);
+  const [isFilling, setIsFilling] = useState(false);
+  const [brushColor, setBrushColor] = useState(defaultBrush);
+  const [brushSize, _] = useState(1);
+  const [cursor, setCursor] = useState(brushPath);
   const canvasRef = useRef(null);
 
   const handleMouseDown = (e, { rowIdx, colIdx }) => {
     e.preventDefault();
     setIsPainting(true);
-    paintCell(rowIdx, colIdx);
+    if (isFilling) {
+      fillCell(rowIdx, colIdx);
+    } else {
+      setIsPainting(true);
+      if (isErasing) {
+        eraseCell(rowIdx, colIdx);
+      } else {
+        paintCell(rowIdx, colIdx);
+      }
+    }
   };
 
   const handleMouseUp = () => {
@@ -28,7 +47,11 @@ const PaintingBoard = () => {
   const handleMouseEnter = (e, { rowIdx, colIdx }) => {
     e.preventDefault();
     if (isPainting) {
-      paintCell(rowIdx, colIdx);
+      if (isErasing) {
+        eraseCell(rowIdx, colIdx);
+      } else {
+        paintCell(rowIdx, colIdx);
+      }
     }
   };
 
@@ -41,12 +64,62 @@ const PaintingBoard = () => {
     setGrid(newGrid);
   };
 
+  const eraseCell = (rowIdx, colIdx) => {
+    const newGrid = grid.map((row, rIdx) =>
+      row.map((color, cIdx) => {
+        const inBrushArea =
+          Math.abs(rIdx - rowIdx) < brushSize &&
+          Math.abs(cIdx - colIdx) < brushSize;
+        return inBrushArea ? defaultColor : color;
+      })
+    );
+    setGrid(newGrid);
+  };
+
+  const fillCell = (rowIdx, colIdx) => {
+    const targetColor = grid[rowIdx][colIdx];
+    if (targetColor === brushColor) return;
+
+    const newGrid = grid.map(row => row.slice());
+    const fillQueue = [{ rowIdx, colIdx }];
+
+    while (fillQueue.length > 0) {
+      const { rowIdx, colIdx } = fillQueue.pop();
+      if (
+        rowIdx < 0 || rowIdx >= rows ||
+        colIdx < 0 || colIdx >= cols ||
+        newGrid[rowIdx][colIdx] !== targetColor
+      ) {
+        continue;
+      }
+
+      newGrid[rowIdx][colIdx] = brushColor;
+
+      fillQueue.push({ rowIdx: rowIdx + 1, colIdx });
+      fillQueue.push({ rowIdx: rowIdx - 1, colIdx });
+      fillQueue.push({ rowIdx, colIdx: colIdx + 1 });
+      fillQueue.push({ rowIdx, colIdx: colIdx - 1 });
+    }
+
+    setGrid(newGrid);
+  };
+
+  const toggleEraseMode = () => {
+    setIsErasing(!isErasing);
+  };
+
+  const toggleFillMode = () => {
+    setIsFilling(!isFilling);
+  };
+
   const handleColorChange = (e) => {
     setBrushColor(e.target.value);
+    setIsErasing(false);
+    setIsFilling(false);
   };
 
   const clearBoard = () => {
-    setGrid(Array(rows).fill(Array(cols).fill("transparent")));
+    setGrid(Array(rows).fill(Array(cols).fill(defaultColor)));
   };
 
   const drawCanvas = () => {
@@ -72,10 +145,21 @@ const PaintingBoard = () => {
     drawCanvas();
   }, [grid]);
 
+  useEffect(() => {
+    setCursor(isErasing ? erasePath : isFilling ? fillPath : brushPath);
+  }, [isErasing, isFilling]);
+
   return (
-    <div className="flex justify-center">
-      <div className="w-[60px]">
-        <div className="text-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        transition: { delay: 2, duration: 0.25, ease: "easeIn" },
+      }}
+      className="flex justify-center"
+    >
+      <div className="w-[60px] text-center">
+        <div>
           <div className="w-full text-xs">Color</div>
           <input
             type="color"
@@ -84,12 +168,33 @@ const PaintingBoard = () => {
             className="w-8 h-8 p-0 border-none"
           />
         </div>
+        <div className="text-center mt-4">
+          <div className="w-full text-xs">Erase</div>
+          <BsEraserFill
+            onClick={toggleEraseMode}
+            color={isErasing ? "white" : "grey"}
+            size={32}
+            className={`mx-auto`}
+          />
+        </div>
+        <div className="text-center relative mt-4">
+          <div className="w-full text-xs">Fill</div>
+          <IoIosColorFill
+            onClick={toggleFillMode}
+            color={isFilling ? "white" : "grey"}
+            size={32}
+            className={`mx-auto`}
+          />
+          <div className="absolute left-[22px] top-[28px] w-3 h-3 rounded-full" style={{
+            backgroundColor: isFilling ? brushColor : defaultColor
+          }} ></div>
+        </div>
       </div>
       <div
-        className="block  bg-white"
+        className="block bg-white"
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        style={{ cursor: `url('/assets/brush.png'), auto` }}
+        style={{ cursor: `url(${cursor}), auto` }}
       >
         {grid.map((row, rowIdx) => (
           <div key={rowIdx} className="flex">
@@ -100,9 +205,7 @@ const PaintingBoard = () => {
                 style={{
                   backgroundColor: color,
                   borderColor:
-                    color && color !== "transparent"
-                      ? color
-                      : "#eee",
+                    color && color !== "transparent" ? color : "#eee",
                 }}
                 onMouseDown={(e) => handleMouseDown(e, { rowIdx, colIdx })}
                 onMouseEnter={(e) => handleMouseEnter(e, { rowIdx, colIdx })}
@@ -131,7 +234,7 @@ const PaintingBoard = () => {
           Export
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
