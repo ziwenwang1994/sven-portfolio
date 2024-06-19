@@ -80,14 +80,16 @@ const PaintingBoard = () => {
     const targetColor = grid[rowIdx][colIdx];
     if (targetColor === brushColor) return;
 
-    const newGrid = grid.map(row => row.slice());
+    const newGrid = grid.map((row) => row.slice());
     const fillQueue = [{ rowIdx, colIdx }];
 
     while (fillQueue.length > 0) {
       const { rowIdx, colIdx } = fillQueue.pop();
       if (
-        rowIdx < 0 || rowIdx >= rows ||
-        colIdx < 0 || colIdx >= cols ||
+        rowIdx < 0 ||
+        rowIdx >= rows ||
+        colIdx < 0 ||
+        colIdx >= cols ||
         newGrid[rowIdx][colIdx] !== targetColor
       ) {
         continue;
@@ -106,10 +108,12 @@ const PaintingBoard = () => {
 
   const toggleEraseMode = () => {
     setIsErasing(!isErasing);
+    setIsFilling(false);
   };
 
   const toggleFillMode = () => {
     setIsFilling(!isFilling);
+    setIsErasing(false);
   };
 
   const handleColorChange = (e) => {
@@ -167,26 +171,27 @@ const PaintingBoard = () => {
             className="w-8 h-8 p-0 border-none"
           />
         </div>
-        <div className="text-center mt-4">
+        <div className="text-center mt-4" onClick={toggleEraseMode}>
           <div className="w-full text-xs">Erase</div>
           <BsEraserFill
-            onClick={toggleEraseMode}
             color={isErasing ? "white" : "grey"}
             size={32}
             className={`mx-auto`}
           />
         </div>
-        <div className="text-center relative mt-4">
+        <div className="text-center relative mt-4" onClick={toggleFillMode}>
           <div className="w-full text-xs">Fill</div>
           <IoIosColorFill
-            onClick={toggleFillMode}
             color={isFilling ? "white" : "grey"}
             size={32}
             className={`mx-auto`}
           />
-          <div className="absolute left-[22px] top-[28px] w-3 h-3 rounded-full" style={{
-            backgroundColor: isFilling ? brushColor : defaultColor
-          }} ></div>
+          <div
+            className="absolute left-[22px] top-[28px] w-3 h-3 rounded-full"
+            style={{
+              backgroundColor: isFilling ? brushColor : defaultColor,
+            }}
+          ></div>
         </div>
       </div>
       <div
