@@ -9,7 +9,7 @@ const Socials = ({ containerStyles, iconStyles }) => {
   return (
     <div className={containerStyles}>
       {socials.map((item) => (
-        <Link key={item.path} href={item.path} className={iconStyles}>
+        <Link key={item.path} href={item.path} className={iconStyles} target="_blank">
           {item.icon}
         </Link>
       ))}

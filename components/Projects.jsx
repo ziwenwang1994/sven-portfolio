@@ -55,6 +55,10 @@ const Projects = () => {
           ))}
         </div>
       </Tabs>
+      <div className="block lg:hidden"> {projects
+                  .map((project) => (
+                    <ProjectCard project={project} key={project.id} />
+                  ))}</div>
     </main>
   );
 };

@@ -159,85 +159,87 @@ const PaintingBoard = () => {
         opacity: 1,
         transition: { delay: 2, duration: 0.1, ease: "easeIn" },
       }}
-      className="flex justify-center"
     >
-      <div className="w-[60px] text-center">
-        <div>
-          <div className="w-full text-xs">Color</div>
-          <input
-            type="color"
-            value={brushColor}
-            onChange={handleColorChange}
-            className="w-8 h-8 p-0 border-none"
-          />
-        </div>
-        <div className="text-center mt-4" onClick={toggleEraseMode}>
-          <div className="w-full text-xs">Erase</div>
-          <BsEraserFill
-            color={isErasing ? "white" : "grey"}
-            size={32}
-            className={`mx-auto`}
-          />
-        </div>
-        <div className="text-center relative mt-4" onClick={toggleFillMode}>
-          <div className="w-full text-xs">Fill</div>
-          <IoIosColorFill
-            color={isFilling ? "white" : "grey"}
-            size={32}
-            className={`mx-auto`}
-          />
-          <div
-            className="absolute left-[22px] top-[28px] w-3 h-3 rounded-full"
-            style={{
-              backgroundColor: isFilling ? brushColor : defaultColor,
-            }}
-          ></div>
-        </div>
-      </div>
-      <div
-        className="block bg-white"
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        style={{ cursor: `url(${cursor}), auto` }}
-      >
-        {grid.map((row, rowIdx) => (
-          <div key={rowIdx} className="flex">
-            {row.map((color, colIdx) => (
-              <div
-                key={colIdx}
-                className={`w-3 h-3 border`}
-                style={{
-                  backgroundColor: color,
-                  borderColor:
-                    color && color !== "transparent" ? color : "#eee",
-                }}
-                onMouseDown={(e) => handleMouseDown(e, { rowIdx, colIdx })}
-                onMouseEnter={(e) => handleMouseEnter(e, { rowIdx, colIdx })}
-              />
-            ))}
+      <h2 className="h2 text-accent pixel py-2">Draw A Simple Pixel Art!</h2>
+      <main className="flex justify-center">
+        <div className="w-[60px] text-center">
+          <div>
+            <div className="w-full text-xs">Color</div>
+            <input
+              type="color"
+              value={brushColor}
+              onChange={handleColorChange}
+              className="w-8 h-8 p-0 border-none"
+            />
           </div>
-        ))}
-      </div>
-      <canvas
-        ref={canvasRef}
-        width={cols * cellSize}
-        height={rows * cellSize}
-        className="hidden"
-      />
-      <div className="ml-2 w-[70px] flex flex-col gap-2">
-        <Button
-          className="w-full bg-red-500/70 text-white/80 rounded-xl text-xs hover:text-black"
-          onClick={clearBoard}
+          <div className="text-center mt-4" onClick={toggleEraseMode}>
+            <div className="w-full text-xs">Erase</div>
+            <BsEraserFill
+              color={isErasing ? "white" : "grey"}
+              size={32}
+              className={`mx-auto`}
+            />
+          </div>
+          <div className="text-center relative mt-4" onClick={toggleFillMode}>
+            <div className="w-full text-xs">Fill</div>
+            <IoIosColorFill
+              color={isFilling ? "white" : "grey"}
+              size={32}
+              className={`mx-auto`}
+            />
+            <div
+              className="absolute left-[22px] top-[28px] w-3 h-3 rounded-full"
+              style={{
+                backgroundColor: isFilling ? brushColor : defaultColor,
+              }}
+            ></div>
+          </div>
+        </div>
+        <div
+          className="block bg-white"
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          style={{ cursor: `url(${cursor}), auto` }}
         >
-          Clear
-        </Button>
-        <Button
-          className="w-full rounded-xl text-xs hover:bg-white/20 hover:text-accent-hover"
-          onClick={downloadImage}
-        >
-          Export
-        </Button>
-      </div>
+          {grid.map((row, rowIdx) => (
+            <div key={rowIdx} className="flex">
+              {row.map((color, colIdx) => (
+                <div
+                  key={colIdx}
+                  className={`w-3 h-3 border`}
+                  style={{
+                    backgroundColor: color,
+                    borderColor:
+                      color && color !== "transparent" ? color : "#eee",
+                  }}
+                  onMouseDown={(e) => handleMouseDown(e, { rowIdx, colIdx })}
+                  onMouseEnter={(e) => handleMouseEnter(e, { rowIdx, colIdx })}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <canvas
+          ref={canvasRef}
+          width={cols * cellSize}
+          height={rows * cellSize}
+          className="hidden"
+        />
+        <div className="ml-2 w-[70px] flex flex-col gap-2">
+          <Button
+            className="w-full bg-red-500/70 text-white/80 rounded-xl text-xs hover:text-black"
+            onClick={clearBoard}
+          >
+            Clear
+          </Button>
+          <Button
+            className="w-full rounded-xl text-xs hover:bg-white/20 hover:text-accent-hover"
+            onClick={downloadImage}
+          >
+            Export
+          </Button>
+        </div>
+      </main>
     </motion.div>
   );
 };

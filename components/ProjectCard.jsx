@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { FaGithubSquare } from "react-icons/fa";
 
 const ProjectCard = ({ project }) => {
   const { id, github, link, logo, name, description, techs } = project;
@@ -13,7 +14,7 @@ const ProjectCard = ({ project }) => {
       <Link className="h3" href={link} target="_blank">
         {name}
       </Link>
-      <section className="flex items-center py-3">
+      <section className="flex items-center py-3 overflow-auto">
         {logo && (
           <Image
             width="200"
@@ -28,6 +29,14 @@ const ProjectCard = ({ project }) => {
           <p className="leading-tight text-[#444444]">{description}</p>
         </div>
       </section>
+      <section>
+        <span className="font-bold text-lime-900">Tech Stack: </span><span className="text-lime-700">{techs?.join(" | ")}</span>
+      </section>
+      {
+        github && <section>
+        <FaGithubSquare className="text-3xl" onClick={() => window.open(github)} />
+      </section>
+      }
     </article>
   );
 };
