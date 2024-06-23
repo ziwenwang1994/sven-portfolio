@@ -43,7 +43,7 @@ export default function Home() {
             </h1>
             <p className="max-w-[500px] mb-9 text-white/80">
               {
-                "ex Software Engineer @ Opera | React, Vue, Typescript, Node, Jest, PHP, RDB, and ORDB | Web3 Beginner. Dream to be an software engineering artist."
+                "ex Software Engineer @ Opera | React, Vue, Typescript, Node, Jest, PHP, RDB, and ORDB | Web3 Beginner. Dream to be an artist of software engineering."
               }
             </p>
             <div className="flex flex-col xl:flex-row items-center gap-8">
