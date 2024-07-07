@@ -11,10 +11,9 @@ const ProjectCard = ({ project }) => {
       className="p-5 bg-[#ededed] my-3 text-[#252525] rounded-md 
     hover:bg-white transition-all duration-500 ease-in-out"
     >
-      {link ?  <Link className="h3 hover:font-bold hover:underline" href={link} target="_blank" >
+      {link ?  <Link className="h3 hover:font-bold hover:underline transition-all" href={link} target="_blank" >
         {name}  {">"}
       </Link> : <h3 className="h3 text-slate-400"> {name}</h3> }
-     
       <section className="flex items-center py-3 overflow-auto">
         {logo && (
           <Image

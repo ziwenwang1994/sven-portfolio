@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const Header = () => {
   return (
-    <header className="py-8 xl:py-12 text-whit hover:bg-pink-50/20">
+    <header className="py-8 xl:py-12 text-whit hover:bg-pink-50/20 transition-all">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
           <Image width="100" height="100" alt="logo" src="/assets/logo.png" className="rounded-full" />
@@ -14,7 +14,6 @@ const Header = () => {
 
         <div className="hidden xl:flex items-center gap-8">
           <Nav />
-          {/* <Link href="/contact"><Button>Hire Me</Button></Link> */}
         </div>
         <div className="xl:hidden"><MobileNav /></div>
       </div>
