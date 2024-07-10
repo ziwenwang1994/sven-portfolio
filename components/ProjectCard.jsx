@@ -11,9 +11,17 @@ const ProjectCard = ({ project }) => {
       className="p-5 bg-[#ededed] my-3 text-[#252525] rounded-md 
     hover:bg-white transition-all duration-500 ease-in-out"
     >
-      {link ?  <Link className="h3 hover:font-bold hover:underline transition-all" href={link} target="_blank" >
-        {name}  {">"}
-      </Link> : <h3 className="h3 text-slate-400"> {name}</h3> }
+      {link ? (
+        <Link
+          className="h3 hover:font-bold hover:underline transition-all"
+          href={link}
+          target="_blank"
+        >
+          {name} {">"}
+        </Link>
+      ) : (
+        <h3 className="h3 text-slate-400"> {name}</h3>
+      )}
       <section className="flex items-center py-3 overflow-auto">
         {logo && (
           <Image
@@ -30,13 +38,17 @@ const ProjectCard = ({ project }) => {
         </div>
       </section>
       <section>
-        <span className="font-bold text-lime-900">Tech Stack: </span><span className="text-lime-700">{techs?.join(" | ")}</span>
+        <span className="font-bold text-lime-900">Tech Stack: </span>
+        <span className="text-lime-700">{techs?.join(" | ")}</span>
       </section>
-      {
-        github && <section>
-        <FaGithubSquare className="text-3xl" onClick={() => window.open(github)} />
-      </section>
-      }
+      {github && (
+        <section>
+          <FaGithubSquare
+            className="text-3xl hover:text-lime-900 transition-all duration-250 ease-in-out cursor-pointer hover:scale-125"
+            onClick={() => window.open(github)}
+          />
+        </section>
+      )}
     </article>
   );
 };
