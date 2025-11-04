@@ -15,7 +15,12 @@ const Projects = () => {
       if (acc?.includes(curr)) return acc;
       acc.push(curr);
       return acc;
-    }, []);
+    }, [])
+    .sort((a, b) => {
+      if (a === "Personal") return -1;
+      if (b === "Personal") return 1;
+      return 0;
+    });
   return (
     <main>
       <Tabs className="flex-wrap lg:flex hidden" defaultValue={tabList[0]}>
