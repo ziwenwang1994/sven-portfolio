@@ -8,6 +8,7 @@ const frontendSkills = [
   { size: [64, 64], src: "/assets/vue-240.png", description: "Vue" },
   { size: [64, 64], src: "/assets/nuxt-480.png", description: "Nuxt" },
   { size: [64, 64], src: "/assets/next-256.png", description: "Next" },
+  { size: [64, 64], src: "/assets/remix.png", description: "Remix" },
   { size: [64, 64], src: "/assets/sass-480.png", description: "SASS" },
   {
     size: [64, 64],
@@ -17,9 +18,11 @@ const frontendSkills = [
 ];
 const backendSkills = [
   { size: [64, 64], src: "/assets/nodejs-240.png", description: "Node.js" },
-  { size: [64, 64], src: "/assets/express-480.png", description: "Express.js" },
+  { size: [64, 64], src: "/assets/graphql.png", description: "GraphQL" },
   { size: [64, 64], src: "/assets/php-480.png", description: "PHP" },
   { size: [64, 64], src: "/assets/laravel-100.png", description: "Laravel" },
+  { size: [64, 64], src: "/assets/silverstripe.png", description: "SilverStripe" },
+  { size: [64, 64], src: "/assets/prisma.png", description: "Prisma" },
   {
     size: [64, 64],
     src: "/assets/postgresql-480.png",
@@ -43,7 +46,7 @@ export default function Home() {
             </h1>
             <p className="max-w-[500px] mb-9 text-white/80">
               {
-                "ex Software Engineer @ Opera | React, Vue, Typescript, Node, Jest, PHP, RDB, and ORDB | Web3 Beginner. Dream to be an artist of software engineering."
+                "Software Engineer @ ArchiPro | React, Remix, Vue, TypeScript, Node, GraphQL, PHP, MySQL, and more | ex Opera Software. Dream to be an artist of software engineering."
               }
             </p>
             <div className="flex flex-col xl:flex-row items-center gap-8">

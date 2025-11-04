@@ -19,28 +19,39 @@ export const Resume = () => {
         <article className="mt-12 py-4">
           <h3 className="h3 text-accent">Work Experience</h3>
           {WorkExperience.map((job) => (
-            <section className="flex items-center mt-6 hover:bg-white/5 transition-all ease-in-out duration-300" key={job.company}>
-              <Image
-                width={100}
-                height={100}
-                src={job.logo}
-                quality={100}
-                className="w-[44px] h-[44px]"
-                alt={`${job.company} logo`}
-              />
-              <div className="ml-4">
-                <Link
-                  className="text-xl font-semibold"
-                  href={job.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {job.company}
-                </Link>
-                <p className="italic text-white/80">
-                  {job.role} | {job.duration}
-                </p>
+            <section className="mt-6 hover:bg-white/5 transition-all ease-in-out duration-300 p-2" key={job.company}>
+              <div className="flex items-center">
+                <Image
+                  width={100}
+                  height={100}
+                  src={job.logo}
+                  quality={100}
+                  className="w-[44px] h-[44px]"
+                  alt={`${job.company} logo`}
+                />
+                <div className="ml-4">
+                  <Link
+                    className="text-xl font-semibold"
+                    href={job.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {job.company}
+                  </Link>
+                  <p className="italic text-white/80">
+                    {job.role} | {job.duration}
+                  </p>
+                </div>
               </div>
+              {job.responsibilities && job.responsibilities.length > 0 && (
+                <ul className="mt-3 ml-14 space-y-2">
+                  {job.responsibilities.map((responsibility, index) => (
+                    <li key={index} className="text-white/80 text-sm list-disc">
+                      {responsibility}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </section>
           ))}
         </article>
